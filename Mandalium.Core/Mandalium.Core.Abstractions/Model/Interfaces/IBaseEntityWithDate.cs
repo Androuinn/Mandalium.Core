@@ -1,4 +1,4 @@
-﻿namespace Mandalium.Core.Model.Interfaces
+﻿namespace Mandalium.Core.Model.Abstractions.Interfaces
 {
     public interface IBaseEntityWithDate
     {
