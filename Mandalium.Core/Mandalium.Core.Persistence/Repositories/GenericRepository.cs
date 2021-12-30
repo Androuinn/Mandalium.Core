@@ -1,11 +1,6 @@
 ﻿using Mandalium.Core.Abstractions.Interfaces;
 using Mandalium.Core.Persisence.Specifications;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mandalium.Core.Persisence.Repositories
 {
@@ -29,26 +24,13 @@ namespace Mandalium.Core.Persisence.Repositories
                 _dbSet.Attach(entityToDelete);
             _dbSet.Remove(entityToDelete);
         }
+        public async Task<T> Get<Type>(Type id) => await _dbSet.FindAsync(id);
 
-        public async Task<T> Get<Type>(Type id)
-        {
-            return await _dbSet.FindAsync(id);
-        }
+        public async Task<IEnumerable<T>> GetAll() => await _dbSet.ToListAsync();
 
-        public async Task<IEnumerable<T>> GetAll()
-        {
-            return await _dbSet.ToListAsync();
-        }
+        public async Task<IEnumerable<T>> GetAll(ISpecification<T> specification) => await ApplySpecification(specification).ToListAsync();
 
-        public async Task<IEnumerable<T>> GetAll(ISpecification<T> specification)
-        {
-            return await ApplySpecification(specification).ToListAsync();
-        }
-
-        public async Task Save(T entity)
-        {
-            await _dbSet.AddAsync(entity);
-        }
+        public async Task Save(T entity) => await _dbSet.AddAsync(entity);
 
         public async Task Update(T entity)
         {

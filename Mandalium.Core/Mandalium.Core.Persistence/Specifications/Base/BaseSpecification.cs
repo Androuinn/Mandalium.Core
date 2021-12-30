@@ -1,5 +1,4 @@
-﻿
-using Mandalium.Core.Abstractions.Interfaces;
+﻿using Mandalium.Core.Abstractions.Interfaces;
 using System.Linq.Expressions;
 
 namespace Mandalium.Core.Persisence.Specifications
