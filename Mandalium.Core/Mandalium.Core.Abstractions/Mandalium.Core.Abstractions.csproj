@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Mandalium.Core.Generic\Mandalium.Core.Generic.csproj" />
+  </ItemGroup>
+
 </Project>
