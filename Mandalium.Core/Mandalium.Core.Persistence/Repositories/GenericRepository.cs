@@ -1,4 +1,5 @@
 ﻿using Mandalium.Core.Abstractions.Interfaces;
+using Mandalium.Core.Generic.Collections;
 using Mandalium.Core.Persisence.Specifications;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,13 @@ namespace Mandalium.Core.Persisence.Repositories
         public async Task<IEnumerable<T>> GetAll() => await _dbSet.ToListAsync();
 
         public async Task<IEnumerable<T>> GetAll(ISpecification<T> specification) => await ApplySpecification(specification).ToListAsync();
+        public async Task<PagedCollection<T>> GetAllPaged(ISpecification<T> specification)
+        {
+            var list = await ApplySpecification(specification).ToListAsync();
+            int count = await ApplySpecification(specification).CountAsync();
+          
+            return new PagedCollection<T>(count,list);
+        }
 
         public async Task Save(T entity) => await _dbSet.AddAsync(entity);
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mandalium.Core.Abstractions\Mandalium.Core.Abstractions.csproj" />
+    <ProjectReference Include="..\Mandalium.Core.Generic\Mandalium.Core.Generic.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,14 +8,16 @@ public class GenericSpecification<T> : BaseSpecification<T> where T : class
     public GenericSpecification(Expression<Func<T, bool>> criteria) : base(criteria) { }
     public GenericSpecification(Expression<Func<T, object>> includeExpression) : base()
     {
-        AddInclude(includeExpression);
+        if (includeExpression != null)
+            AddInclude(includeExpression);
     }
 
     public GenericSpecification(List<Expression<Func<T, object>>> includeExpressionList) : base()
     {
-        foreach (var exp in includeExpressionList)
+        for (int i = 0; i < includeExpressionList.Count; i++)
         {
-            AddInclude(exp);
+            if (includeExpressionList[i] != null)
+                AddInclude(includeExpressionList[i]);
         }
     }
 
@@ -26,10 +28,49 @@ public class GenericSpecification<T> : BaseSpecification<T> where T : class
 
     public GenericSpecification(List<Expression<Func<T, object>>> includeExpressionList, Expression<Func<T, bool>> criteria) : base(criteria)
     {
-        foreach (var exp in includeExpressionList)
+        for (int i = 0; i < includeExpressionList.Count; i++)
         {
-            AddInclude(exp);
+            if (includeExpressionList[i] != null)
+                AddInclude(includeExpressionList[i]);
         }
     }
+
+    #region paging
+    public GenericSpecification(int pageIndex, int pageCount) : base()
+    {
+        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
+    }
+
+    public GenericSpecification(int pageIndex, int pageCount, Expression<Func<T, bool>> criteria) : base(criteria)
+    {
+        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
+    }
+
+    public GenericSpecification(int pageIndex, int pageCount, Expression<Func<T, object>> includeExpression) : base()
+    {
+        if (includeExpression != null)
+            AddInclude(includeExpression);
+        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
+    }
+
+    public GenericSpecification(int pageIndex, int pageCount, Expression<Func<T, object>> includeExpression, Expression<Func<T, bool>> criteria) : base(criteria)
+    {
+        if (includeExpression != null)
+            AddInclude(includeExpression);
+        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
+    }
+
+    public GenericSpecification(int pageIndex, int pageCount, List<Expression<Func<T, object>>> includeExpressionList, Expression<Func<T, bool>> criteria) : base(criteria)
+    {
+        for (int i = 0; i < includeExpressionList.Count; i++)
+        {
+            if (includeExpressionList[i] != null)
+                AddInclude(includeExpressionList[i]);
+        }
+        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
+    }
+
+    #endregion
+
 }
 
