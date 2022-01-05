@@ -1,9 +1,9 @@
 ﻿using Mandalium.Core.Abstractions.Interfaces;
-using Mandalium.Core.Persisence.Repositories;
+using Mandalium.Core.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 
-namespace Mandalium.Core.Persisence.UnitOfWork
+namespace Mandalium.Core.Persistence.UnitOfWork
 {
     public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
     {

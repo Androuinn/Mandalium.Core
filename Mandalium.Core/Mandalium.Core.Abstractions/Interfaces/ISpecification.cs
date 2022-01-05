@@ -14,5 +14,8 @@ namespace Mandalium.Core.Abstractions.Interfaces
         int Take { get; }
         int Skip { get; }
         bool IsPagingEnabled { get; }
+        public int PageIndex { get; }
+
+        void DisablePaging();
     }
 }

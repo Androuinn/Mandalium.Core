@@ -1,8 +1,7 @@
 ﻿using Mandalium.Core.Abstractions.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
-namespace Mandalium.Core.Persisence.Specifications
+namespace Mandalium.Core.Persistence.Specifications
 {
     public class SpecificationEvaluator<TEntity> where TEntity : class
     {

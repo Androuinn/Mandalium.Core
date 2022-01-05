@@ -1,9 +1,10 @@
 ﻿using Mandalium.Core.Abstractions.Interfaces;
 using Mandalium.Core.Generic.Collections;
-using Mandalium.Core.Persisence.Specifications;
+using Mandalium.Core.Persistence.Specifications;
 using Microsoft.EntityFrameworkCore;
+using Mandalium.Core.Persistence.Helper;
 
-namespace Mandalium.Core.Persisence.Repositories
+namespace Mandalium.Core.Persistence.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -33,9 +34,9 @@ namespace Mandalium.Core.Persisence.Repositories
         public async Task<PagedCollection<T>> GetAllPaged(ISpecification<T> specification)
         {
             var list = await ApplySpecification(specification).ToListAsync();
-            int count = await ApplySpecification(specification).CountAsync();
-          
-            return new PagedCollection<T>(count,list);
+            int count = await ApplySpecification(specification.GetWithoutPaging()).CountAsync();
+
+            return new PagedCollection<T>(count, specification.Take, specification.PageIndex, list);
         }
 
         public async Task Save(T entity) => await _dbSet.AddAsync(entity);

@@ -1,7 +1,7 @@
 ﻿using Mandalium.Core.Abstractions.Interfaces;
 using System.Linq.Expressions;
 
-namespace Mandalium.Core.Persisence.Specifications
+namespace Mandalium.Core.Persistence.Specifications
 {
     public abstract class BaseSpecification<T> : ISpecification<T>
     {
@@ -21,6 +21,7 @@ namespace Mandalium.Core.Persisence.Specifications
         public int Take { get; private set; }
         public int Skip { get; private set; }
         public bool IsPagingEnabled { get; private set; } = false;
+        public int PageIndex { get; private set; }
 
         protected virtual void AddInclude(Expression<Func<T, object>> includeExpression)
         {
@@ -32,11 +33,17 @@ namespace Mandalium.Core.Persisence.Specifications
             IncludeStrings.Add(includeString);
         }
 
-        protected virtual void ApplyPaging(int skip, int take)
+        protected virtual void ApplyPaging(int skip, int take, int pageIndex)
         {
             Skip = skip;
             Take = take;
+            PageIndex = pageIndex;
             IsPagingEnabled = true;
+        }
+
+        public virtual void DisablePaging()
+        {
+            IsPagingEnabled = false;
         }
 
         protected virtual void ApplyOrderBy(Expression<Func<T, object>> orderByExpression)

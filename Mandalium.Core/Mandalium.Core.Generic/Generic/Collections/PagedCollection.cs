@@ -26,5 +26,16 @@
             this.Collection = collection;
             this.PageSize = pageSize;
         }
+
+        public PagedCollection(int totalCount, int pageSize, int currentPage, ICollection<T> collection)
+        {
+            this.TotalCount = totalCount;
+            this.Collection = collection;
+            this.PageSize = pageSize;
+            this.CurrentPage = currentPage;
+            if (CurrentPage > PageCount)
+                CurrentPage = PageCount;
+
+        }
     }
 }

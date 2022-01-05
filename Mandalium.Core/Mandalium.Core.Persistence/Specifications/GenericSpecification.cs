@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Mandalium.Core.Persisence.Specifications;
+namespace Mandalium.Core.Persistence.Specifications;
 
 public class GenericSpecification<T> : BaseSpecification<T> where T : class
 {
@@ -34,43 +34,7 @@ public class GenericSpecification<T> : BaseSpecification<T> where T : class
                 AddInclude(includeExpressionList[i]);
         }
     }
-
-    #region paging
-    public GenericSpecification(int pageIndex, int pageCount) : base()
-    {
-        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
     }
-
-    public GenericSpecification(int pageIndex, int pageCount, Expression<Func<T, bool>> criteria) : base(criteria)
-    {
-        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
-    }
-
-    public GenericSpecification(int pageIndex, int pageCount, Expression<Func<T, object>> includeExpression) : base()
-    {
-        if (includeExpression != null)
-            AddInclude(includeExpression);
-        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
-    }
-
-    public GenericSpecification(int pageIndex, int pageCount, Expression<Func<T, object>> includeExpression, Expression<Func<T, bool>> criteria) : base(criteria)
-    {
-        if (includeExpression != null)
-            AddInclude(includeExpression);
-        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
-    }
-
-    public GenericSpecification(int pageIndex, int pageCount, List<Expression<Func<T, object>>> includeExpressionList, Expression<Func<T, bool>> criteria) : base(criteria)
-    {
-        for (int i = 0; i < includeExpressionList.Count; i++)
-        {
-            if (includeExpressionList[i] != null)
-                AddInclude(includeExpressionList[i]);
-        }
-        ApplyPaging((pageIndex - 1 * pageCount), pageCount);
-    }
-
-    #endregion
 
 }
 
