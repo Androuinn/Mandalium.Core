@@ -34,7 +34,7 @@ public class GenericSpecification<T> : BaseSpecification<T> where T : class
                 AddInclude(includeExpressionList[i]);
         }
     }
-    }
+    
 
 }
 

@@ -11,5 +11,7 @@ namespace Mandalium.Core.Abstractions.Interfaces
         Task Delete<Type>(Type id);
         Task Update(T entity);
         Task Save(T entity);
+
+        Task Detach(T entity);
     }
 }

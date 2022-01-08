@@ -4,13 +4,15 @@
     {
         public int TotalCount { get; init; }
         public ICollection<T> Collection { get; set; }
-        public int PageCount => Math.Max((int)Math.Ceiling((decimal)TotalCount / PageSize), 1);
+        public int PageCount => TotalCount > 0 ? Math.Max((int)Math.Ceiling((decimal)TotalCount / PageSize), 1) : 0;
         public int CurrentPage { get; set; }
         public int PageSize { get; set; }
 
         public PagedCollection()
         {
             Collection ??= new List<T>();
+            CurrentPage = 0;
+            PageSize = 0;
         }
 
         public PagedCollection(int totalCount, ICollection<T> collection)

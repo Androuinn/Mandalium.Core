@@ -28,12 +28,12 @@ namespace Mandalium.Core.Persistence.Repositories
         }
         public async Task<T> Get<Type>(Type id) => await _dbSet.FindAsync(id);
 
-        public async Task<IEnumerable<T>> GetAll() => await _dbSet.ToListAsync();
+        public async Task<IEnumerable<T>> GetAll() => await _dbSet.AsNoTracking().ToListAsync();
 
-        public async Task<IEnumerable<T>> GetAll(ISpecification<T> specification) => await ApplySpecification(specification).ToListAsync();
+        public async Task<IEnumerable<T>> GetAll(ISpecification<T> specification) => await ApplySpecification(specification).AsNoTracking().ToListAsync();
         public async Task<PagedCollection<T>> GetAllPaged(ISpecification<T> specification)
         {
-            var list = await ApplySpecification(specification).ToListAsync();
+            var list = await ApplySpecification(specification).AsNoTracking().ToListAsync();
             int count = await ApplySpecification(specification.GetWithoutPaging()).CountAsync();
 
             return new PagedCollection<T>(count, specification.Take, specification.PageIndex, list);
@@ -53,6 +53,15 @@ namespace Mandalium.Core.Persistence.Repositories
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvaluator<T>.GetQuery(_dbSet.AsQueryable(), spec);
+        }
+
+        public async Task Detach(T entity)
+        {
+            await Task.Run(() =>
+            {
+                _context.Entry(entity).State = EntityState.Detached;
+            });
+            
         }
     }
 }
