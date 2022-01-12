@@ -10,9 +10,9 @@
 
         public PagedCollection()
         {
-            Collection ??= new List<T>();
-            CurrentPage = 0;
-            PageSize = 0;
+            this.Collection ??= new List<T>();
+            this.CurrentPage = 0;
+            this.PageSize = 0;
         }
 
         public PagedCollection(int totalCount, ICollection<T> collection)
@@ -20,6 +20,7 @@
             this.TotalCount = totalCount;
             this.Collection = collection;
             this.PageSize = 10;
+            this.CurrentPage = 1;
         }
 
         public PagedCollection(int totalCount, int pageSize, ICollection<T> collection)
@@ -27,6 +28,7 @@
             this.TotalCount = totalCount;
             this.Collection = collection;
             this.PageSize = pageSize;
+            this.CurrentPage = 1;
         }
 
         public PagedCollection(int totalCount, int pageSize, int currentPage, ICollection<T> collection)

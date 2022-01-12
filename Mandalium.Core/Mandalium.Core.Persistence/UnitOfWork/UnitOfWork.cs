@@ -32,9 +32,9 @@ namespace Mandalium.Core.Persistence.UnitOfWork
             GC.SuppressFinalize(this);
         }
 
-        public virtual async Task Save()
+        public virtual async Task Save(CancellationToken cancellationToken = default)
         {
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public virtual IGenericRepository<T> GetRepository<T>() where T : class

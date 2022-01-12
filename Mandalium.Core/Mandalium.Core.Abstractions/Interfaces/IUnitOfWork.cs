@@ -3,7 +3,7 @@
     public interface IUnitOfWork : IDisposable
     {
 
-        Task Save();
+        Task Save(CancellationToken cancellationToken = default);
         IGenericRepository<T> GetRepository<T>() where T : class;
     }
 }
